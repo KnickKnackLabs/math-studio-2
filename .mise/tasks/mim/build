@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#MISE description="Build the standalone mim HTML artifact"
+#MISE dir="{{config_root}}"
+#USAGE example "mise run mim:build" header="Build dist/mim.html"
+set -euo pipefail
+
+exec bun run build

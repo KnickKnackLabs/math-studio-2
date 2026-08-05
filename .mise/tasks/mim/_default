@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#MISE description="Build and open the standalone mim instrument"
+#MISE dir="{{config_root}}"
+#USAGE example "mise run mim" header="Build and open dist/mim.html"
+set -euo pipefail
+
+bun run build
+artifact="$MISE_CONFIG_ROOT/dist/mim.html"
+if [ "$(uname -s)" = "Darwin" ]; then
+  open "$artifact"
+else
+  printf '%s\n' "$artifact"
+fi

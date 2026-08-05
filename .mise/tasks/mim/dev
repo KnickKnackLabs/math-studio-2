@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#MISE description="Run the mim development server"
+#MISE dir="{{config_root}}"
+#USAGE example "mise run mim:dev" header="Start Vite on localhost"
+set -euo pipefail
+
+exec bun run dev -- --host 127.0.0.1

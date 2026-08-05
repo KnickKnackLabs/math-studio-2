@@ -1,0 +1,23 @@
+{
+  "name": "@knickknacklabs/mim",
+  "packageManager": "bun@1.3.14",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "bun run scripts/build.ts",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "check:artifact": "bun run scripts/check-artifact.ts",
+    "test": "bun run scripts/test.ts",
+    "test:unit": "bun test src"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.2.0",
+    "@types/bun": "^1.3.14",
+    "svelte": "^5.56.8",
+    "svelte-check": "^4.7.4",
+    "typescript": "5.9.3",
+    "vite": "^8.2.0",
+    "vite-plugin-singlefile": "^2.3.3"
+  }
+}

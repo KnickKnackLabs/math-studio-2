@@ -1,0 +1,16 @@
+# Local mise overrides
+mise.local.toml
+
+# JavaScript and Svelte
+node_modules/
+dist/
+.svelte-kit/
+coverage/
+
+# Editor / OS noise
+.DS_Store
+*.swp
+
+# Runtime scratch
+*.log
+tmp/

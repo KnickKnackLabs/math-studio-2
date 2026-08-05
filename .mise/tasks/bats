@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#MISE description="Run BATS task-boundary tests"
+#MISE dir="{{config_root}}"
+#USAGE arg "[args]" default="" var=#true help="Test suites or bats arguments"
+#USAGE example "mise run bats" header="Run all BATS tests in parallel"
+#USAGE example "mise run bats skeleton" header="Run a suite by name"
+#USAGE example "mise run bats --jobs 1" header="Run serially for debugging"
+set -euo pipefail
+
+arguments=()
+if [ -n "${usage_args:-}" ]; then
+  while IFS= read -r argument; do
+    [ -z "$argument" ] || arguments+=("$argument")
+  done < <(printf '%s' "$usage_args" | xargs printf '%s\n')
+fi
+
+exec "$MISE_CONFIG_ROOT/libexec/bats" ${arguments[@]+"${arguments[@]}"}

@@ -1,0 +1,28 @@
+[settings]
+quiet = true
+task_output = "interleave"
+experimental = true
+aqua.registries = ["https://github.com/KnickKnackLabs/bats-core"]
+
+[plugins]
+shiv = "https://github.com/KnickKnackLabs/vfox-shiv"
+
+[tools]
+bun = "1.3.14"
+"aqua:KnickKnackLabs/bats-core" = "1.14.0-kkl.1"
+"aqua:shenwei356/rush" = "0.9.0"
+gum = "0.17.0"
+"shiv:codebase" = "0.3"
+"shiv:readme" = "0.3"
+
+[_.codebase]
+lint = [
+  "mise-settings",
+  "bats-test-helper",
+  "mcr-scope",
+  "or-true",
+  "shellcheck",
+  "gum-table",
+  "caller-pwd-contract",
+  "github-actions",
+]

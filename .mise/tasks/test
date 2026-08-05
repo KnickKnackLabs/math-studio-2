@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#MISE description="Run the complete mim validation path"
+#MISE dir="{{config_root}}"
+#USAGE example "mise run test" header="Run unit, Svelte, standalone-build, and task tests"
+set -euo pipefail
+
+exec bun run test
