@@ -10,7 +10,7 @@ const steps: Step[] = [
   { name: "unit", command: [process.execPath, "test", "src"] },
   { name: "svelte", command: [process.execPath, "run", "check"] },
   { name: "standalone build", command: [process.execPath, "run", "build"] },
-  { name: "BATS", command: ["mise", "run", "bats"] },
+  { name: "BATS", command: ["mise", "run", "test"] },
 ];
 
 for (const step of steps) {
