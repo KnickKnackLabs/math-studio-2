@@ -36,6 +36,19 @@ SH
   ! grep -Fx "arg=--no-parallelize-within-files" "$BATS_LOG"
 }
 
+@test "option values cannot suppress the whitespace transport fallback" {
+  target="$BATS_TEST_TMPDIR/parallel target/fixture file.bats"
+  mkdir -p "$(dirname "$target")"
+  printf '%s
+' '#!/usr/bin/env bats' > "$target"
+
+  run mim test "$target" --filter --no-parallelize-across-files
+  [ "$status" -eq 0 ]
+  [ "$(grep -Fxc 'arg=--no-parallelize-across-files' "$BATS_LOG")" -eq 2 ]
+  ! grep -Fx "arg=--no-parallelize-within-files" "$BATS_LOG"
+  grep -Fx "arg=$target" "$BATS_LOG"
+}
+
 @test "test task supports serial debugging" {
   export RUSH_COMMAND="$MOCK_DIR/missing-rush"
   run mim test --jobs 1 skeleton
