@@ -19,6 +19,11 @@ load test_helper
   done
 }
 
+@test "CI runs the complete product validation path" {
+  grep -F 'run: mise run check' "$REPO_DIR/.github/workflows/test.yml"
+  grep -F 'exec bun run test' "$REPO_DIR/.mise/tasks/check"
+}
+
 @test "README.md is generated from README.tsx" {
   run bash -c 'cd "$REPO_DIR" && readme build --check'
   [ "$status" -eq 0 ]
