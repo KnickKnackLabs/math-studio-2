@@ -21,11 +21,11 @@ The current GCD/LCM instrument is the first concrete consumer, not proof that ev
 mise install
 bun install --frozen-lockfile
 mise run mim:dev
-mise run test
+mise run check
 mise run mim:build
 mise run mim
 ```
 
 `dist/mim.html` is generated. Do not edit it directly or commit it. Validate behavior in source and validate the generated artifact through the public build path.
 
-Before committing, run `mise run test`, `codebase lint "$PWD"`, `readme build --check`, and `git diff --check`.
+Before committing, run `mise run check`, `codebase lint "$PWD"`, `readme build --check`, and `git diff --check`.

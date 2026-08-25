@@ -108,7 +108,7 @@ mise run mim`}</CodeBlock>
     </Section>
 
     <Section title="Validation">
-      <CodeBlock lang="bash">{`mise run test
+      <CodeBlock lang="bash">{`mise run check
 codebase lint "$PWD"
 readme build --check
 git diff --check`}</CodeBlock>

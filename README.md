@@ -47,19 +47,20 @@ mise run mim
 
 ## Tasks
 
-| Task                 | Description                                  |
-| -------------------- | -------------------------------------------- |
-| `mise run bats`      | Run BATS task-boundary tests                 |
-| `mise run doctor`    | Check local development setup                |
-| `mise run mim`       | Build and open the standalone mim instrument |
-| `mise run mim:build` | Build the standalone mim HTML artifact       |
-| `mise run mim:dev`   | Run the mim development server               |
-| `mise run test`      | Run the complete mim validation path         |
+| Task                 | Description                                        |
+| -------------------- | -------------------------------------------------- |
+| `mise run bats`      | Run BATS task-boundary tests (compatibility alias) |
+| `mise run check`     | Run the complete mim validation path               |
+| `mise run doctor`    | Check local development setup                      |
+| `mise run mim`       | Build and open the standalone mim instrument       |
+| `mise run mim:build` | Build the standalone mim HTML artifact             |
+| `mise run mim:dev`   | Run the mim development server                     |
+| `mise run test`      | Run BATS task-boundary tests                       |
 
 ## Validation
 
 ```bash
-mise run test
+mise run check
 codebase lint "$PWD"
 readme build --check
 git diff --check

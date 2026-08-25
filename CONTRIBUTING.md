@@ -20,12 +20,12 @@ Keep the first GCD/LCM instrument concrete. Do not build a generic plugin framew
 ## Validation
 
 ```bash
-mise run test
+mise run check
 codebase lint "$PWD"
 readme build --check
 git diff --check
 ```
 
-The aggregate test task runs Bun unit tests, Svelte checks, the standalone build and artifact check, and narrow BATS tests of public task boundaries.
+The aggregate check task runs Bun unit tests, Svelte checks, the standalone build and artifact check, and narrow BATS tests of public task boundaries.
 
 `dist/mim.html` is generated and ignored. Never edit it directly.

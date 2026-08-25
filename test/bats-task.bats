@@ -26,8 +26,8 @@ SH
   unset BATS_NUMBER_OF_PARALLEL_JOBS BATS_PARALLEL_BINARY_NAME
 }
 
-@test "bats task defaults to four Rush jobs" {
-  run mim bats skeleton --filter doctor
+@test "test task defaults to four Rush jobs" {
+  run mim test skeleton --filter doctor
   [ "$status" -eq 0 ]
   [[ "$output" == *"4 jobs via"* ]]
   grep -Fx "jobs=4" "$BATS_LOG"
@@ -35,16 +35,16 @@ SH
   grep -Fx "arg=$REPO_DIR/test/skeleton.bats" "$BATS_LOG"
 }
 
-@test "bats task supports serial debugging" {
+@test "test task supports serial debugging" {
   export RUSH_COMMAND="$MOCK_DIR/missing-rush"
-  run mim bats --jobs 1 skeleton
+  run mim test --jobs 1 skeleton
   [ "$status" -eq 0 ]
   [[ "$output" == *"BATS parallelism: serial"* ]]
 }
 
 @test "invalid parallelism fails before BATS" {
   export BATS_NUMBER_OF_PARALLEL_JOBS=lots
-  run mim bats skeleton
+  run mim test skeleton
   [ "$status" -eq 2 ]
   [[ "$output" == *"must be a positive integer"* ]]
   [ ! -e "$BATS_LOG" ]
@@ -52,7 +52,7 @@ SH
 
 @test "missing parallel runner fails clearly" {
   export RUSH_COMMAND="$MOCK_DIR/missing-rush"
-  run -127 mim bats skeleton
+  run -127 mim test skeleton
   [ "$status" -eq 127 ]
   [[ "$output" == *"parallel runner"* ]]
 }
