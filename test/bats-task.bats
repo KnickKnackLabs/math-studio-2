@@ -33,6 +33,7 @@ SH
   grep -Fx "jobs=4" "$BATS_LOG"
   grep -Fx "runner=$MOCK_DIR/rush" "$BATS_LOG"
   grep -Fx "arg=$REPO_DIR/test/skeleton.bats" "$BATS_LOG"
+  ! grep -Fx "arg=--no-parallelize-within-files" "$BATS_LOG"
 }
 
 @test "test task supports serial debugging" {
@@ -55,4 +56,42 @@ SH
   run -127 mim test skeleton
   [ "$status" -eq 127 ]
   [[ "$output" == *"parallel runner"* ]]
+}
+
+@test "public test path runs tests within one BATS file concurrently" {
+  probe_dir="$BATS_TEST_TMPDIR/within-file-probe"
+  export PROBE_DIR="$BATS_TEST_TMPDIR/within-file-barrier"
+  mkdir -p "$probe_dir" "$PROBE_DIR"
+
+  test_keyword='@test'
+  {
+    printf '%s\n' '#!/usr/bin/env bats'
+    printf '%s\n' "$test_keyword \"first test observes second test\" {"
+    cat <<'BATS'
+  touch "$PROBE_DIR/one"
+  for _ in {1..50}; do
+    [ ! -e "$PROBE_DIR/two" ] || return 0
+    sleep 0.05
+  done
+  false
+}
+BATS
+    printf '%s\n' "$test_keyword \"second test observes first test\" {"
+    cat <<'BATS'
+  touch "$PROBE_DIR/two"
+  for _ in {1..50}; do
+    [ ! -e "$PROBE_DIR/one" ] || return 0
+    sleep 0.05
+  done
+  false
+}
+BATS
+  } > "$probe_dir/within-file.bats"
+
+  unset BATS_COMMAND RUSH_COMMAND
+  unset BATS_NUMBER_OF_PARALLEL_JOBS BATS_PARALLEL_BINARY_NAME
+  run mim test "$probe_dir"
+
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"jobs via"* ]]
 }
