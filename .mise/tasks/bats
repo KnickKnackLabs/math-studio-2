@@ -3,7 +3,7 @@
 #MISE dir="{{config_root}}"
 #USAGE arg "[args]" default="" var=#true help="Test suites or BATS arguments"
 #USAGE example "mise run bats" header="Run all BATS tests through the canonical test task"
-#USAGE example "mise run bats skeleton" header="Run a suite by name"
+#USAGE example "mise run bats test/skeleton.bats" header="Run a specific test file"
 set -euo pipefail
 
 arguments=()
